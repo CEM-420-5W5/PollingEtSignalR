@@ -62,6 +62,7 @@ export default function Home() {
           onTaskAdd={handleTaskAdd}
           onTaskToggle={onTaskToggle}
         />
+        <p>Nombre d'utilisateurs connectés: {usercount}</p>
     </div>
   );
 }
