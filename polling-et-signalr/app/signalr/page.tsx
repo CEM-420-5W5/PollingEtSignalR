@@ -23,10 +23,10 @@ export default function Home() {
     // TODO On doit ensuite se connecter
   }
 
-  function onTaskToggle(id: number, completed: boolean) {
+  function onTaskToggle(id: number) {
     // TODO On invoke la méthode pour compléter une tâche sur le serveur
     let tasksCopy : UselessTask[] = [...tasks];    
-    tasksCopy.find(task => task.id === id)!.completed = completed;
+    tasksCopy.find(task => task.id === id)!.completed = true;
     setTasks(tasksCopy);
   }
 

@@ -6,7 +6,7 @@ import { UselessTask } from "../models/UselessTask";
 
 export interface TaskViewProps {
     onTaskAdd?: (taskName: string) => void;
-    onTaskToggle?: (taskId: number, completed: boolean) => void;
+    onTaskToggle?: (taskId: number) => void;
     tasks: UselessTask[];
 }
 
@@ -20,9 +20,9 @@ export default function TaskView({ onTaskAdd, onTaskToggle, tasks }: TaskViewPro
     setTaskName("");
   };
 
-  const handleTaskToggle = (taskId: number, completed: boolean) => {
+  const handleTaskToggle = (taskId: number) => {
     if (onTaskToggle) {
-      onTaskToggle(taskId, completed);
+      onTaskToggle(taskId);
     }
   };
 
@@ -55,7 +55,8 @@ export default function TaskView({ onTaskAdd, onTaskToggle, tasks }: TaskViewPro
                                 type="checkbox"
                                 id={`task-${task.id}`}
                                 checked={task.completed}
-                                onChange={(e) => handleTaskToggle(task.id, e.target.checked)}
+                                disabled={task.completed}
+                                onChange={(e) => handleTaskToggle(task.id)}
                                 className="w-4 h-4 text-blue-600 rounded"
                             />
                             <label htmlFor={`task-${task.id}`} className="ml-2 text-sm">

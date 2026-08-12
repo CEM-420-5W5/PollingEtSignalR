@@ -17,11 +17,11 @@ export default function Home() {
     // TODO On invoke la méthode pour ajouter une tâche sur le serveur (Contrôleur d'API)
   }
 
-  function onTaskToggle(id: number, completed: boolean) {
+  function onTaskToggle(id: number) {
     // TODO On invoke la méthode pour compléter une tâche sur le serveur (Contrôleur d'API)
 
     let tasksCopy : UselessTask[] = [...tasks];    
-    tasksCopy.find(task => task.id === id)!.completed = completed;
+    tasksCopy.find(task => task.id === id)!.completed = true;
     setTasks(tasksCopy);
   }
 
