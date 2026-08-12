@@ -7,31 +7,37 @@ import { UselessTask } from "../models/UselessTask";
 
 export default function Home() {
 
+  const apiUrl = "http://localhost:5042/api/";
+
   const [tasks, setTasks] = React.useState<UselessTask[]>([]);
 
   useEffect(() => {
     updateTasks();
   }, []);
 
-  function handleTaskAdd(taskName: string) {
+  async function handleTaskAdd(taskName: string) {
     // TODO On invoke la méthode pour ajouter une tâche sur le serveur (Contrôleur d'API)
+    let newTasks = [...tasks];
+    let result = await axios.post<UselessTask>(apiUrl+'UselessTasks/Add?taskText=' + taskName, null);
+    newTasks.push(result.data);
+    setTasks(newTasks);
   }
 
-  function onTaskToggle(id: number, completed: boolean) {
+  async function onTaskToggle(id: number, completed: boolean) {
     // TODO On invoke la méthode pour compléter une tâche sur le serveur (Contrôleur d'API)
-
     let tasksCopy : UselessTask[] = [...tasks];    
     tasksCopy.find(task => task.id === id)!.completed = completed;
     setTasks(tasksCopy);
+
+    return axios.get<any>(apiUrl+'UselessTasks/Complete/' + id);
   }
 
   async function updateTasks() {
-    let testTasks = new Array<UselessTask>(
-      { id: 1, text: "Test Task 1", completed: false },
-      { id: 2, text: "Test Task 2", completed: true });
-    setTasks(testTasks);
+    let result = await axios.get<UselessTask[]>(apiUrl+'UselessTasks/GetAll');
+    setTasks(result.data);
     // TODO: Faire une première implémentation simple avec un appel au serveur pour obtenir la liste des tâches
     // TODO: UNE FOIS QUE VOUS AVEZ TESTER AVEC DEUX CLIENTS: Utiliser le polling pour mettre la liste de tasks à jour chaque seconde
+    setTimeout(updateTasks, 1000);
   }
 
   return (
