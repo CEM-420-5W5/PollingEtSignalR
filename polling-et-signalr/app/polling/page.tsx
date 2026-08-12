@@ -23,10 +23,10 @@ export default function Home() {
     setTasks(newTasks);
   }
 
-  async function onTaskToggle(id: number, completed: boolean) {
+  async function onTaskToggle(id: number) {
     // TODO On invoke la méthode pour compléter une tâche sur le serveur (Contrôleur d'API)
     let tasksCopy : UselessTask[] = [...tasks];    
-    tasksCopy.find(task => task.id === id)!.completed = completed;
+    tasksCopy.find(task => task.id === id)!.completed = true;
     setTasks(tasksCopy);
 
     return axios.get<any>(apiUrl+'UselessTasks/Complete/' + id);
