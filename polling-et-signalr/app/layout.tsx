@@ -26,14 +26,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">     
-      <body className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} h-full antialiased max-w-[700px]`}>
         <h1 className="text-3xl font-bold m-4">Useless Tasker</h1>
-        <nav>
+        <nav className="">
           <Link className="bg-blue-500 text-white py-2 px-4 rounded-sm font-bold m-4" href="/polling">Polling</Link>
           <Link className="bg-red-500 text-white py-2 px-4 rounded-sm font-bold m-4" href="/signalr">SignalR</Link>
         </nav>
         {children}
-        </body>
+      </body>
     </html>
   );
 }

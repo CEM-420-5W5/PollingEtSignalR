@@ -1,19 +1,70 @@
+"use client";
 
-export default function TaskView() {
+import React, { use } from "react";
+import { Field, FieldLabel, Input } from "ui-exercices-5w5"
+import { UselessTask } from "../models/UselessTask";
+
+export interface TaskViewProps {
+    onTaskAdd?: (taskName: string) => void;
+    onTaskToggle?: (taskId: number, completed: boolean) => void;
+    tasks: UselessTask[];
+}
+
+export default function TaskView({ onTaskAdd, onTaskToggle, tasks }: TaskViewProps) {
+  const [taskName, setTaskName] = React.useState("");
+
+  const handleAddTask = () => {
+    if (onTaskAdd) {
+      onTaskAdd(taskName);
+    }
+    setTaskName("");
+  };
+
+  const handleTaskToggle = (taskId: number, completed: boolean) => {
+    if (onTaskToggle) {
+      onTaskToggle(taskId, completed);
+    }
+  };
+
   return (
-    <div className="bg-white text-slate-900 border border-slate-200 rounded-xl shadow-md overflow-hidden max-w-sm">
-        <div className="p-6 pb-0 flex flex-col space-y-1.5">
-            <h3 className="text-xl font-semibold leading-none tracking-tight">Card Title</h3>
-            <p className="text-sm text-slate-500">Card Subtitle</p>
-        </div>
+    <div className="p-4">
+        <Field className="mb-4">
+            <FieldLabel htmlFor="input-field-username">Nom de la tâche</FieldLabel>
+            <Input
+                id="input-field-username"
+                type="text"
+                value={taskName}
+                onChange={(e) => setTaskName(e.target.value)}
+                placeholder="Entrez le nom de la tâche"
+            />      
+        </Field>
 
-        <div className="p-6 text-sm text-slate-600 leading-relaxed">
-            This is the card content area, mirroring the layout structure of mat-card-content.
+        <div className="">
+            <button onClick={handleAddTask} className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-sm transition">Ajouter une tâche</button>
         </div>
-
-        <div className="p-6 pt-0 flex items-center justify-end space-x-2">
-            <button className="px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-md transition">Cancel</button>
-            <button className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-sm transition">Action</button>
+        <br></br>
+        <div className="p-4 border-t border-slate-200">
+            <h3 className="text-sm font-semibold mb-3">Tâches</h3>
+            {tasks.length === 0 ? (
+                <p className="text-sm text-slate-500">Aucune tâche</p>
+            ) : (
+                <ul className="space-y-2">
+                    {tasks.map((task) => (
+                        <li key={task.id} className="flex items-center">
+                            <input
+                                type="checkbox"
+                                id={`task-${task.id}`}
+                                checked={task.completed}
+                                onChange={(e) => handleTaskToggle(task.id, e.target.checked)}
+                                className="w-4 h-4 text-blue-600 rounded"
+                            />
+                            <label htmlFor={`task-${task.id}`} className="ml-2 text-sm">
+                                {task.text}
+                            </label>
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     </div>
   );
