@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">     
+    <html lang="en" suppressHydrationWarning>     
       <body className={`${geistSans.variable} ${geistMono.variable} h-full antialiased max-w-[700px]`}>
         <h1 className="text-3xl font-bold m-4">Useless Tasker</h1>
         <nav className="">
