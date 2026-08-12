@@ -10,12 +10,6 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
-    <Compile Remove="Hubs\**" />
-    <Content Remove="Hubs\**" />
-    <EmbeddedResource Remove="Hubs\**" />
-    <None Remove="Hubs\**" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="Hubs\" />
     <None Remove="Services\" />
   </ItemGroup>
