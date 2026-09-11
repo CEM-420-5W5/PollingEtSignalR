@@ -19,7 +19,7 @@ export default function Home() {
           { id: 2, text: "Test Task 2", completed: true });
         setTasks(testTasks);
     // TODO On doit commencer par créer la connexion vers le Hub
-    // TODO On peut commencer à écouter pour les évènements qui vont déclencher des callbacks
+    // TODO On peut commencer à écouter pour les messages qui vont déclencher des callbacks (Il y a seulement un message pour commencer)
     // TODO On doit ensuite se connecter
   }
 
